@@ -1,0 +1,75 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool
+*.out
+coverage.txt
+coverage.html
+
+# Go workspace file
+go.work
+
+# Dependency directories
+vendor/
+
+# IDE specific files
+.idea/
+*.swp
+*.swo
+*~
+.vscode/
+*.code-workspace
+.claude/
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# Generated statement files
+*.pdf
+*.csv
+*.html
+!examples/*.go
+!test/*.go
+
+# Sample data files (may contain sensitive information)
+examples/sample_data.csv
+examples/bernard_statement.go
+examples/brex_statement.go
+examples/quarterly_statement.go
+
+# Context tracking files (internal use)
+.context/
+context.md
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# Build artifacts
+dist/
+build/
+bin/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Private keys and certificates
+*.pem
+*.key
+*.crt
+*.cer
+
+# Local configuration
+config.local.yaml
+config.local.json
