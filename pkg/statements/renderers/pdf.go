@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/statement-generator/sdk/pkg/statements"
+	"github.com/bitnob/statement-generator-sdk/pkg/statements"
 	"github.com/jung-kurt/gofpdf/v2"
 	"github.com/shopspring/decimal"
 )

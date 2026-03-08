@@ -123,4 +123,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-For detailed release notes, see [GitHub Releases](https://github.com/statement-generator/sdk/releases)
+For detailed release notes, see [GitHub Releases](https://github.com/bitnob/statement-generator-sdk/releases)

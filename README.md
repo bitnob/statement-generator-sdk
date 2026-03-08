@@ -27,7 +27,7 @@ A lightweight, embeddable Go SDK for generating professional bank and financial 
 ## Installation
 
 ```bash
-go get github.com/statement-generator/sdk
+go get github.com/bitnob/statement-generator-sdk
 ```
 
 ## Quick Start
@@ -38,7 +38,7 @@ package main
 import (
     "log"
     "time"
-    "github.com/statement-generator/sdk/pkg/statements"
+    "github.com/bitnob/statement-generator-sdk/pkg/statements"
     "github.com/shopspring/decimal"
 )
 
@@ -419,20 +419,19 @@ if err != nil {
 
 ## Examples
 
-See the [examples](examples/) directory for more comprehensive examples:
+See the [examples](examples/) directory for working examples:
 
-- [Basic Example](examples/basic/) - Simple statement generation
-- [Multi-Currency](examples/multi-currency/) - Handling multiple currencies
-- [Bulk Generation](examples/bulk/) - Generating statements in bulk
-- [Custom Templates](examples/templates/) - Using custom HTML templates
-- [API Server](examples/api/) - REST API for statement generation
+- [Basic Example](examples/basic/) - Complete statement generation with all export formats
+- [Simple Example](examples/simple/) - Minimal configuration example
+- [Footer Demo](examples/footer_demo/) - Various footer and contact information styles
+- [Template Demo](examples/template_demo/) - Different PDF template styles (minimalist, enhanced, simple)
 
 ## Requirements
 
 - Go 1.20 or higher
-- No external dependencies for core functionality
-- Optional: `github.com/jung-kurt/gofpdf/v2` for PDF generation
-- Optional: `github.com/shopspring/decimal` for decimal arithmetic
+- `github.com/jung-kurt/gofpdf/v2` - PDF generation
+- `github.com/shopspring/decimal` - High-precision decimal arithmetic
+- `github.com/stretchr/testify` - Testing framework (dev only)
 
 ## Contributing
 
@@ -450,7 +449,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support
 
-For issues, questions, or contributions, please visit our [GitHub repository](https://github.com/statement-generator/sdk).
+For issues, questions, or contributions, please visit our [GitHub repository](https://github.com/bitnob/statement-generator-sdk).
 
 ## Acknowledgments
 

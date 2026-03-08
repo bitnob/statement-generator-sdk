@@ -1,4 +1,4 @@
-module github.com/statement-generator/sdk
+module github.com/bitnob/statement-generator-sdk
 
 go 1.21
 

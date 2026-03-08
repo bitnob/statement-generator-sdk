@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/statement-generator/sdk/pkg/statements"
+	"github.com/bitnob/statement-generator-sdk/pkg/statements"
 	"github.com/shopspring/decimal"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

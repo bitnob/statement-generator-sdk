@@ -28,12 +28,12 @@ By participating in this project, you agree to abide by our Code of Conduct:
 1. **Fork the Repository**: Click the "Fork" button on GitHub
 2. **Clone Your Fork**:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/sdk.git
-   cd sdk
+   git clone https://github.com/YOUR_USERNAME/statement-generator-sdk.git
+   cd statement-generator-sdk
    ```
 3. **Add Upstream Remote**:
    ```bash
-   git remote add upstream https://github.com/statement-generator/sdk.git
+   git remote add upstream https://github.com/bitnob/statement-generator-sdk.git
    ```
 
 ## Development Setup

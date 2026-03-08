@@ -1,7 +1,7 @@
 package renderers
 
 import (
-	"github.com/statement-generator/sdk/pkg/statements"
+	"github.com/bitnob/statement-generator-sdk/pkg/statements"
 )
 
 // Renderer is the interface for all statement renderers

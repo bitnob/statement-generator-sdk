@@ -13,7 +13,7 @@
 ## Core Package
 
 ```go
-import "github.com/statement-generator/sdk/pkg/statements"
+import "github.com/bitnob/statement-generator-sdk/pkg/statements"
 ```
 
 ## Types

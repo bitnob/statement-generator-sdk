@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/statement-generator/sdk/pkg/statements"
+	"github.com/bitnob/statement-generator-sdk/pkg/statements"
 )
 
 // CSV implements the CSV renderer

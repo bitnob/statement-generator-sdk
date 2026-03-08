@@ -6,7 +6,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/statement-generator/sdk/pkg/statements"
+	"github.com/bitnob/statement-generator-sdk/pkg/statements"
 	"github.com/shopspring/decimal"
 )
 

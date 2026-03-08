@@ -1,10 +1,10 @@
 # Statement Generator SDK Examples
 
-This directory contains example applications demonstrating various features of the Statement Generator SDK.
+This directory contains working example applications demonstrating various features of the Statement Generator SDK.
 
 ## Available Examples
 
-### 1. Simple Example (`simple_example.go`)
+### 1. Simple Example (`simple/main.go`)
 Basic statement generation with minimal configuration:
 - Creates a checking account with address
 - Adds sample transactions
@@ -12,10 +12,10 @@ Basic statement generation with minimal configuration:
 - Shows institution footer customization
 
 ```bash
-go run simple_example.go
+cd simple && go run main.go
 ```
 
-### 2. Template Styles (`test_templates.go`)
+### 2. Template Styles (`template_demo/main.go`)
 Demonstrates different PDF template styles:
 - Minimalist (default) - Black and white with alternating rows
 - Enhanced - Colored headers and amounts
@@ -23,10 +23,10 @@ Demonstrates different PDF template styles:
 - Custom - With locale settings
 
 ```bash
-go run test_templates.go
+cd template_demo && go run main.go
 ```
 
-### 3. Footer and Contact Information (`test_footer_logo.go`)
+### 3. Footer and Contact Information (`footer_demo/main.go`)
 Shows various footer configurations:
 - Standard bank with basic contact
 - Premium bank with full details
@@ -34,7 +34,7 @@ Shows various footer configurations:
 - International bank with compliance text
 
 ```bash
-go run test_footer_logo.go
+cd footer_demo && go run main.go
 ```
 
 ### 4. Basic Example (`basic/main.go`)
@@ -60,14 +60,22 @@ cd basic && go run main.go
 
 ## Running the Examples
 
-1. Install dependencies:
+1. Navigate to the examples directory:
 ```bash
-go mod download
+cd examples
 ```
 
 2. Run any example:
 ```bash
-go run [example_file].go
+cd [example_directory] && go run main.go
+```
+
+For example:
+```bash
+cd simple && go run main.go
+cd ../basic && go run main.go
+cd ../footer_demo && go run main.go
+cd ../template_demo && go run main.go
 ```
 
 3. Check generated files:
