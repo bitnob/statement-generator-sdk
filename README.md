@@ -11,7 +11,7 @@ A lightweight, embeddable Go SDK for generating professional bank and financial 
 - [Specification](docs/SPECIFICATION.md) - Detailed SDK specification
 - [Contributing Guide](docs/CONTRIBUTING.md) - How to contribute
 - [Changelog](docs/CHANGELOG.md) - Version history
-- [Implementation Plan](docs/IMPLEMENTATION_PLAN.md) - Development roadmap
+- [Test Coverage](docs/TEST_COVERAGE.md) - Test suite documentation
 
 ## Features
 
