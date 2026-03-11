@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	fmt.Println("=== Testing Enhanced Footer and Contact Information ===\n")
+	fmt.Println("=== Testing Enhanced Footer and Contact Information ===")
 
 	// Create account
 	account := statements.Account{
@@ -84,7 +84,7 @@ func main() {
 	// Test 1: Standard bank with minimal contact info
 	fmt.Println("1. STANDARD BANK WITH CONTACT INFO")
 	fmt.Println("   - Basic contact details")
-	fmt.Println("   - Default footer text\n")
+	fmt.Println("   - Default footer text")
 
 	institution1 := &statements.Institution{
 		Name: "First National Bank",
@@ -116,13 +116,13 @@ func main() {
 
 	pdfBytes, _ := statement.ToPDF()
 	os.WriteFile("statement_standard_footer.pdf", pdfBytes, 0644)
-	fmt.Println("   ✅ Generated: statement_standard_footer.pdf\n")
+	fmt.Println("   ✅ Generated: statement_standard_footer.pdf")
 
 	// Test 2: Premium bank with full contact details
 	fmt.Println("2. PREMIUM BANK WITH ENHANCED FOOTER")
 	fmt.Println("   - Full contact information")
 	fmt.Println("   - Custom footer text")
-	fmt.Println("   - Website and email\n")
+	fmt.Println("   - Website and email")
 
 	institution2 := &statements.Institution{
 		Name: "Global Premier Banking",
@@ -148,13 +148,13 @@ func main() {
 
 	pdfBytes, _ = statement.ToPDF()
 	os.WriteFile("statement_premium_footer.pdf", pdfBytes, 0644)
-	fmt.Println("   ✅ Generated: statement_premium_footer.pdf\n")
+	fmt.Println("   ✅ Generated: statement_premium_footer.pdf")
 
 	// Test 3: Fintech with modern contact approach
 	fmt.Println("3. FINTECH WITH MODERN CONTACT STYLE")
 	fmt.Println("   - Email-first support")
 	fmt.Println("   - App-focused footer")
-	fmt.Println("   - Modern messaging\n")
+	fmt.Println("   - Modern messaging")
 
 	institution3 := &statements.Institution{
 		Name: "NeoBank Digital",
@@ -178,13 +178,13 @@ func main() {
 
 	pdfBytes, _ = statement.ToPDF()
 	os.WriteFile("statement_fintech_footer.pdf", pdfBytes, 0644)
-	fmt.Println("   ✅ Generated: statement_fintech_footer.pdf\n")
+	fmt.Println("   ✅ Generated: statement_fintech_footer.pdf")
 
 	// Test 4: International bank with compliance footer
 	fmt.Println("4. INTERNATIONAL BANK WITH COMPLIANCE FOOTER")
 	fmt.Println("   - Regulatory compliance text")
 	fmt.Println("   - International contact")
-	fmt.Println("   - Multi-language support hint\n")
+	fmt.Println("   - Multi-language support hint")
 
 	institution4 := &statements.Institution{
 		Name: "International Commerce Bank",
@@ -209,7 +209,7 @@ func main() {
 
 	pdfBytes, _ = statement.ToPDF()
 	os.WriteFile("statement_international_footer.pdf", pdfBytes, 0644)
-	fmt.Println("   ✅ Generated: statement_international_footer.pdf\n")
+	fmt.Println("   ✅ Generated: statement_international_footer.pdf")
 
 	// Summary
 	fmt.Println("=== FOOTER AND CONTACT TEST COMPLETE ===")

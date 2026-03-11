@@ -1,12 +1,11 @@
 package renderers
 
 import (
+	"bytes"
 	"fmt"
-	"time"
 
 	"github.com/bitnob/statement-generator-sdk/pkg/statements"
 	"github.com/jung-kurt/gofpdf/v2"
-	"github.com/shopspring/decimal"
 )
 
 // PDF implements the PDF renderer
@@ -67,7 +66,12 @@ func (p *PDF) RenderPDF(statement *statements.Statement) ([]byte, error) {
 	p.addFooters(pdf, statement)
 
 	// Output PDF
-	return pdf.Output()
+	var buf bytes.Buffer
+	err := pdf.Output(&buf)
+	if err != nil {
+		return nil, err
+	}
+	return buf.Bytes(), nil
 }
 
 // renderHeader renders the PDF header
@@ -76,21 +80,21 @@ func (p *PDF) renderHeader(pdf *gofpdf.Fpdf, statement *statements.Statement) {
 	if statement.Input.Institution != nil {
 		// Institution name
 		pdf.SetFont("Arial", "B", 18)
-		pdf.Cell(0, 10, statement.Input.Institution.Name, "", 1, "C")
+		pdf.CellFormat(0, 10, statement.Input.Institution.Name, "", 1, "C", false, 0, "")
 
 		// Institution address if available
 		if statement.Input.Institution.Address != nil {
 			pdf.SetFont("Arial", "", 10)
 			addressLines := p.addressFormatter.Format(statement.Input.Institution.Address)
 			for _, line := range addressLines {
-				pdf.Cell(0, 5, line, "", 1, "C")
+				pdf.CellFormat(0, 5, line, "", 1, "C", false, 0, "")
 			}
 		}
 
 		// Registration number if available
 		if statement.Input.Institution.RegNumber != "" {
 			pdf.SetFont("Arial", "", 9)
-			pdf.Cell(0, 5, "Reg No: "+statement.Input.Institution.RegNumber, "", 1, "C")
+			pdf.CellFormat(0, 5, "Reg No: "+statement.Input.Institution.RegNumber, "", 1, "C", false, 0, "")
 		}
 
 		pdf.Ln(5)
@@ -98,7 +102,7 @@ func (p *PDF) renderHeader(pdf *gofpdf.Fpdf, statement *statements.Statement) {
 
 	// Statement title
 	pdf.SetFont("Arial", "B", 16)
-	pdf.Cell(0, 10, "ACCOUNT STATEMENT", "", 1, "C")
+	pdf.CellFormat(0, 10, "ACCOUNT STATEMENT", "", 1, "C", false, 0, "")
 
 	// Line separator
 	pdf.SetDrawColor(44, 62, 80)
@@ -112,57 +116,57 @@ func (p *PDF) renderAccountInfo(pdf *gofpdf.Fpdf, statement *statements.Statemen
 	// Section title
 	pdf.SetFont("Arial", "B", 12)
 	pdf.SetTextColor(44, 62, 80)
-	pdf.Cell(0, 8, "Account Information", "", 1, "L")
+	pdf.CellFormat(0, 8, "Account Information", "", 1, "L", false, 0, "")
 	pdf.SetTextColor(0, 0, 0)
 
 	pdf.SetFont("Arial", "", 10)
 
 	// Account holder
 	pdf.SetFont("Arial", "B", 10)
-	pdf.Cell(40, 6, "Account Holder:", "", 0, "L")
+	pdf.CellFormat(40, 6, "Account Holder:", "", 0, "L", false, 0, "")
 	pdf.SetFont("Arial", "", 10)
-	pdf.Cell(0, 6, statement.Input.Account.HolderName, "", 1, "L")
+	pdf.CellFormat(0, 6, statement.Input.Account.HolderName, "", 1, "L", false, 0, "")
 
 	// Account number
 	pdf.SetFont("Arial", "B", 10)
-	pdf.Cell(40, 6, "Account Number:", "", 0, "L")
+	pdf.CellFormat(40, 6, "Account Number:", "", 0, "L", false, 0, "")
 	pdf.SetFont("Arial", "", 10)
-	pdf.Cell(0, 6, statement.Input.Account.Number, "", 1, "L")
+	pdf.CellFormat(0, 6, statement.Input.Account.Number, "", 1, "L", false, 0, "")
 
 	// Account type if available
 	if statement.Input.Account.Type != "" {
 		pdf.SetFont("Arial", "B", 10)
-		pdf.Cell(40, 6, "Account Type:", "", 0, "L")
+		pdf.CellFormat(40, 6, "Account Type:", "", 0, "L", false, 0, "")
 		pdf.SetFont("Arial", "", 10)
-		pdf.Cell(0, 6, statement.Input.Account.Type, "", 1, "L")
+		pdf.CellFormat(0, 6, statement.Input.Account.Type, "", 1, "L", false, 0, "")
 	}
 
 	// Statement period
 	pdf.SetFont("Arial", "B", 10)
-	pdf.Cell(40, 6, "Statement Period:", "", 0, "L")
+	pdf.CellFormat(40, 6, "Statement Period:", "", 0, "L", false, 0, "")
 	pdf.SetFont("Arial", "", 10)
 	period := p.dateFormatter.FormatPeriod(statement.Input.PeriodStart, statement.Input.PeriodEnd)
-	pdf.Cell(0, 6, period, "", 1, "L")
+	pdf.CellFormat(0, 6, period, "", 1, "L", false, 0, "")
 
 	// Currency
 	pdf.SetFont("Arial", "B", 10)
-	pdf.Cell(40, 6, "Currency:", "", 0, "L")
+	pdf.CellFormat(40, 6, "Currency:", "", 0, "L", false, 0, "")
 	pdf.SetFont("Arial", "", 10)
-	pdf.Cell(0, 6, statement.Input.Account.Currency, "", 1, "L")
+	pdf.CellFormat(0, 6, statement.Input.Account.Currency, "", 1, "L", false, 0, "")
 
 	// Address if available (for proof of address)
 	if statement.Input.Account.Address != nil {
 		pdf.SetFont("Arial", "B", 10)
-		pdf.Cell(40, 6, "Address:", "", 0, "L")
+		pdf.CellFormat(40, 6, "Address:", "", 0, "L", false, 0, "")
 		pdf.SetFont("Arial", "", 10)
 
 		addressLines := p.addressFormatter.Format(statement.Input.Account.Address)
 		for i, line := range addressLines {
 			if i == 0 {
-				pdf.Cell(0, 6, line, "", 1, "L")
+				pdf.CellFormat(0, 6, line, "", 1, "L", false, 0, "")
 			} else {
-				pdf.Cell(40, 6, "", "", 0, "L") // Empty space for alignment
-				pdf.Cell(0, 6, line, "", 1, "L")
+				pdf.CellFormat(40, 6, "", "", 0, "L", false, 0, "") // Empty space for alignment
+				pdf.CellFormat(0, 6, line, "", 1, "L", false, 0, "")
 			}
 		}
 	}
@@ -179,48 +183,47 @@ func (p *PDF) renderSummary(pdf *gofpdf.Fpdf, statement *statements.Statement) {
 	// Section title
 	pdf.SetFont("Arial", "B", 12)
 	pdf.SetTextColor(44, 62, 80)
-	pdf.Cell(0, 8, "Account Summary", "", 1, "L")
+	pdf.CellFormat(0, 8, "Account Summary", "", 1, "L", false, 0, "")
 	pdf.SetTextColor(0, 0, 0)
 
 	// Create two columns
-	y := pdf.GetY()
 
 	// Left column
 	pdf.SetFont("Arial", "B", 10)
-	pdf.Cell(50, 6, "Opening Balance:", "", 0, "L")
+	pdf.CellFormat(50, 6, "Opening Balance:", "", 0, "L", false, 0, "")
 	pdf.SetFont("Arial", "", 10)
 	openingBalance := p.currencyFormatter.FormatAmount(statement.Input.OpeningBalance, statement.Input.Account.Currency)
-	pdf.Cell(45, 6, openingBalance, "", 0, "R")
+	pdf.CellFormat(45, 6, openingBalance, "", 0, "R", false, 0, "")
 
 	// Right column
 	pdf.SetX(105)
 	pdf.SetFont("Arial", "B", 10)
-	pdf.Cell(50, 6, "Total Credits:", "", 0, "L")
+	pdf.CellFormat(50, 6, "Total Credits:", "", 0, "L", false, 0, "")
 	pdf.SetFont("Arial", "", 10)
 	totalCredits := p.currencyFormatter.FormatAmount(statement.TotalCredits, statement.Input.Account.Currency)
-	pdf.Cell(45, 6, totalCredits, "", 1, "R")
+	pdf.CellFormat(45, 6, totalCredits, "", 1, "R", false, 0, "")
 
 	// Second row
 	pdf.SetFont("Arial", "B", 10)
-	pdf.Cell(50, 6, "Total Debits:", "", 0, "L")
+	pdf.CellFormat(50, 6, "Total Debits:", "", 0, "L", false, 0, "")
 	pdf.SetFont("Arial", "", 10)
 	totalDebits := p.currencyFormatter.FormatAmount(statement.TotalDebits, statement.Input.Account.Currency)
-	pdf.Cell(45, 6, totalDebits, "", 0, "R")
+	pdf.CellFormat(45, 6, totalDebits, "", 0, "R", false, 0, "")
 
 	// Right column
 	pdf.SetX(105)
 	pdf.SetFont("Arial", "B", 10)
-	pdf.Cell(50, 6, "Transaction Count:", "", 0, "L")
+	pdf.CellFormat(50, 6, "Transaction Count:", "", 0, "L", false, 0, "")
 	pdf.SetFont("Arial", "", 10)
-	pdf.Cell(45, 6, fmt.Sprintf("%d", statement.TransactionCount), "", 1, "R")
+	pdf.CellFormat(45, 6, fmt.Sprintf("%d", statement.TransactionCount), "", 1, "R", false, 0, "")
 
 	// Closing balance (prominent)
 	pdf.Ln(2)
 	pdf.SetFont("Arial", "B", 12)
 	pdf.SetTextColor(44, 62, 80)
-	pdf.Cell(50, 8, "CLOSING BALANCE:", "", 0, "L")
+	pdf.CellFormat(50, 8, "CLOSING BALANCE:", "", 0, "L", false, 0, "")
 	closingBalance := p.currencyFormatter.FormatAmount(statement.ClosingBalance, statement.Input.Account.Currency)
-	pdf.Cell(45, 8, closingBalance, "", 1, "R")
+	pdf.CellFormat(45, 8, closingBalance, "", 1, "R", false, 0, "")
 	pdf.SetTextColor(0, 0, 0)
 
 	pdf.Ln(8)
@@ -231,7 +234,7 @@ func (p *PDF) renderTransactions(pdf *gofpdf.Fpdf, statement *statements.Stateme
 	// Section title
 	pdf.SetFont("Arial", "B", 12)
 	pdf.SetTextColor(44, 62, 80)
-	pdf.Cell(0, 8, "Transaction History", "", 1, "L")
+	pdf.CellFormat(0, 8, "Transaction History", "", 1, "L", false, 0, "")
 	pdf.SetTextColor(0, 0, 0)
 
 	// Table header
@@ -239,13 +242,13 @@ func (p *PDF) renderTransactions(pdf *gofpdf.Fpdf, statement *statements.Stateme
 
 	// Opening balance row
 	pdf.SetFont("Arial", "", 9)
-	pdf.Cell(20, 6, p.dateFormatter.Format(statement.Input.PeriodStart), "B", 0, "L")
-	pdf.Cell(65, 6, "Opening Balance", "B", 0, "L")
-	pdf.Cell(25, 6, "", "B", 0, "R")
-	pdf.Cell(25, 6, "", "B", 0, "R")
+	pdf.CellFormat(20, 6, p.dateFormatter.Format(statement.Input.PeriodStart), "B", 0, "L", false, 0, "")
+	pdf.CellFormat(65, 6, "Opening Balance", "B", 0, "L", false, 0, "")
+	pdf.CellFormat(25, 6, "", "B", 0, "R", false, 0, "")
+	pdf.CellFormat(25, 6, "", "B", 0, "R", false, 0, "")
 	openingBalance := p.currencyFormatter.FormatAmount(statement.Input.OpeningBalance, statement.Input.Account.Currency)
-	pdf.Cell(30, 6, openingBalance, "B", 0, "R")
-	pdf.Cell(25, 6, "", "B", 1, "L")
+	pdf.CellFormat(30, 6, openingBalance, "B", 0, "R", false, 0, "")
+	pdf.CellFormat(25, 6, "", "B", 1, "L", false, 0, "")
 
 	// Transactions
 	calculator := statements.NewCalculator()
@@ -347,12 +350,12 @@ func (p *PDF) addFooters(pdf *gofpdf.Fpdf, statement *statements.Statement) {
 
 		// Page number
 		pageText := fmt.Sprintf("Page %d of %d", i, pageCount)
-		pdf.Cell(0, 5, pageText, "", 0, "C")
+		pdf.CellFormat(0, 5, pageText, "", 0, "C", false, 0, "")
 
 		// Generated timestamp
 		pdf.SetY(-10)
 		generatedText := fmt.Sprintf("Generated: %s", p.dateFormatter.FormatDateTime(statement.GeneratedAt))
-		pdf.Cell(0, 5, generatedText, "", 0, "C")
+		pdf.CellFormat(0, 5, generatedText, "", 0, "C", false, 0, "")
 	}
 }
 
@@ -368,11 +371,11 @@ func (p *PDF) RenderCompact(statement *statements.Statement) ([]byte, error) {
 	title := fmt.Sprintf("Statement: %s - %s",
 		statement.Input.Account.HolderName,
 		statement.Input.Account.Number)
-	pdf.Cell(0, 8, title, "", 1, "L")
+	pdf.CellFormat(0, 8, title, "", 1, "L", false, 0, "")
 
 	period := p.dateFormatter.FormatPeriod(statement.Input.PeriodStart, statement.Input.PeriodEnd)
 	pdf.SetFont("Arial", "", 10)
-	pdf.Cell(0, 6, period, "", 1, "L")
+	pdf.CellFormat(0, 6, period, "", 1, "L", false, 0, "")
 
 	// Compact summary in one line
 	pdf.SetFont("Arial", "", 9)
@@ -384,13 +387,18 @@ func (p *PDF) RenderCompact(statement *statements.Statement) ([]byte, error) {
 		p.currencyFormatter.FormatAmount(statement.ClosingBalance, statement.Input.Account.Currency),
 		statement.TransactionCount,
 	)
-	pdf.Cell(0, 6, summaryText, "", 1, "L")
+	pdf.CellFormat(0, 6, summaryText, "", 1, "L", false, 0, "")
 	pdf.Ln(3)
 
 	// Compact transaction table
 	p.renderCompactTable(pdf, statement)
 
-	return pdf.Output()
+	var buf bytes.Buffer
+	err := pdf.Output(&buf)
+	if err != nil {
+		return nil, err
+	}
+	return buf.Bytes(), nil
 }
 
 // renderCompactTable renders a compact transaction table
@@ -429,26 +437,26 @@ func (p *PDF) renderCompactTable(pdf *gofpdf.Fpdf, statement *statements.Stateme
 
 		runningBalance = runningBalance.Add(txn.Amount)
 
-		pdf.Cell(18, 4, p.dateFormatter.Format(txn.Date), "LR", 0, "L")
+		pdf.CellFormat(18, 4, p.dateFormatter.Format(txn.Date), "LR", 0, "L", false, 0, "")
 
 		description := txn.Description
 		if len(description) > 50 {
 			description = description[:47] + "..."
 		}
-		pdf.Cell(80, 4, description, "LR", 0, "L")
+		pdf.CellFormat(80, 4, description, "LR", 0, "L", false, 0, "")
 
 		if txn.Type == statements.Debit {
-			pdf.Cell(22, 4, txn.Amount.Abs().StringFixed(2), "LR", 0, "R")
-			pdf.Cell(22, 4, "", "LR", 0, "R")
+			pdf.CellFormat(22, 4, txn.Amount.Abs().StringFixed(2), "LR", 0, "R", false, 0, "")
+			pdf.CellFormat(22, 4, "", "LR", 0, "R", false, 0, "")
 		} else {
-			pdf.Cell(22, 4, "", "LR", 0, "R")
-			pdf.Cell(22, 4, txn.Amount.StringFixed(2), "LR", 0, "R")
+			pdf.CellFormat(22, 4, "", "LR", 0, "R", false, 0, "")
+			pdf.CellFormat(22, 4, txn.Amount.StringFixed(2), "LR", 0, "R", false, 0, "")
 		}
 
-		pdf.Cell(25, 4, runningBalance.StringFixed(2), "LR", 0, "R")
-		pdf.Cell(30, 4, txn.Reference, "LR", 1, "L")
+		pdf.CellFormat(25, 4, runningBalance.StringFixed(2), "LR", 0, "R", false, 0, "")
+		pdf.CellFormat(30, 4, txn.Reference, "LR", 1, "L", false, 0, "")
 	}
 
 	// Bottom border
-	pdf.Cell(197, 0, "", "T", 0, "L")
+	pdf.CellFormat(197, 0, "", "T", 0, "L", false, 0, "")
 }

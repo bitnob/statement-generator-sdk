@@ -165,7 +165,7 @@ func (h *HTML) getTemplateFuncs() template.FuncMap {
 
 // loadDefaultTemplate loads the default HTML template
 func (h *HTML) loadDefaultTemplate() {
-	defaultTemplate := getDefaultHTMLTemplate()
+	defaultTemplate := GetDefaultHTMLTemplate()
 	tmpl, err := template.New("default").Funcs(h.getTemplateFuncs()).Parse(defaultTemplate)
 	if err != nil {
 		// This should never happen with our default template

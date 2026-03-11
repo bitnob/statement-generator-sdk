@@ -87,7 +87,7 @@ func main() {
 		},
 	}
 
-	fmt.Println("=== Testing Statement Template Styles ===\n")
+	fmt.Println("=== Testing Statement Template Styles ===")
 
 	// Test 1: Default (Minimalist) Template
 	fmt.Println("1. GENERATING WITH DEFAULT (MINIMALIST) TEMPLATE")
@@ -103,7 +103,7 @@ func main() {
 
 	pdfBytes, _ := statement.ToPDF()
 	os.WriteFile("statement_minimalist.pdf", pdfBytes, 0644)
-	fmt.Println("   ✅ Generated: statement_minimalist.pdf\n")
+	fmt.Println("   ✅ Generated: statement_minimalist.pdf")
 
 	// Test 2: Enhanced Template
 	fmt.Println("2. GENERATING WITH ENHANCED TEMPLATE")
@@ -121,7 +121,7 @@ func main() {
 
 	pdfBytes, _ = statement.ToPDF()
 	os.WriteFile("statement_enhanced.pdf", pdfBytes, 0644)
-	fmt.Println("   ✅ Generated: statement_enhanced.pdf\n")
+	fmt.Println("   ✅ Generated: statement_enhanced.pdf")
 
 	// Test 3: Simple Template
 	fmt.Println("3. GENERATING WITH SIMPLE TEMPLATE")
@@ -139,7 +139,7 @@ func main() {
 
 	pdfBytes, _ = statement.ToPDF()
 	os.WriteFile("statement_simple.pdf", pdfBytes, 0644)
-	fmt.Println("   ✅ Generated: statement_simple.pdf\n")
+	fmt.Println("   ✅ Generated: statement_simple.pdf")
 
 	// Test 4: Custom Configuration
 	fmt.Println("4. GENERATING WITH CUSTOM CONFIGURATION")
@@ -156,7 +156,7 @@ func main() {
 
 	pdfBytes, _ = statement.ToPDF()
 	os.WriteFile("statement_custom.pdf", pdfBytes, 0644)
-	fmt.Println("   ✅ Generated: statement_custom.pdf\n")
+	fmt.Println("   ✅ Generated: statement_custom.pdf")
 
 	// Summary
 	fmt.Println("=== TEMPLATE TEST COMPLETE ===")
